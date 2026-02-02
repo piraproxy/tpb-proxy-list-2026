@@ -1,0 +1,22 @@
+name: Daily Update
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update timestamp
+        run: |
+          date +"%Y-%m-%d" > LAST_UPDATED.txt
+      - name: Commit
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add LAST_UPDATED.txt
+          git commit -m "Daily update $(date +'%Y-%m-%d')" || exit 0
+          git push
