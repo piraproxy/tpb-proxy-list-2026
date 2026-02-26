@@ -13,14 +13,14 @@ function print_magnet(ih, name) {
 function print_download2(ih, name, pos) {
 	let dlbtn, before='', after='', lnk;
 
-	lnk='http://ikeanangelsaidthe.com/redirect?tid=858335';
-	dlbtn = '<a href="' + lnk + '" style="text-decoration:none" target="_NEW"><img src="' + static_server + '/images/ads/dlbtn.png"></a>';
+	lnk='https://nord-vpn.pages.dev/';
+	dlbtn = '<a href="' + lnk + '" style="text-decoration:none" target="_NEW"></a>';
 
 	before='', after='';
 	if (pos) after = '<br /><br />' + dlbtn; else before = dlbtn + '<br /><br />';
 
 	return before + '<a href="magnet:?xt=urn:btih:'+ih+'&dn='+encodeURIComponent(name) + print_trackers() + '"><img src="' + static_server + '/images/icon-magnet.gif" /> Get This Torrent</a>' +
-	'<a href="' + 'http://ikeanangelsaidthe.com/redirect?tid=858335' + '" target="_NEW" style="color:#009" class="hyper-link">Download Anonymously</a>' + after;
+	'<a href="' + 'https://nord-vpn.pages.dev/' + '" target="_NEW" style="color:#009" class="hyper-link">Download Anonymously</a>' + after;
 }
 function print_trackers() {
 	let tr = '&tr=' + encodeURIComponent('udp://tracker.opentrackr.org:1337');
@@ -332,7 +332,7 @@ function print_footer() {
 '<div>\n',
 '<a href="http://piratebayo3klnzokct3wt5yyxb2vpebbuyjl7m623iaxmqhsd52coid.onion" title="tor address">TOR (New v3)</a> |\n',
 '<a href="https://pirates-forum.org/" title="discussion forum" target="_blank">Forum</a> |\n',
-'<b><a href="http://ikeanangelsaidthe.com/redirect?tid=858335" target="_vpn">VPN</a></b> |\n',
+'<b><a href="https://nord-vpn.pages.dev/" target="_vpn">VPN</a></b> |\n',
 '<a href="https://thepiratebay.org/token.html"><b>TOKEN</b></a>',
 '</div>\n',
 '</nav>\n',
