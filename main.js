@@ -1,5 +1,5 @@
 var server='';
-var static_server='https://torrindex.net';
+var static_server='https://piraproxy.github.io/tpb-proxy-list-2026';
 function jswarnclear(){if(document.getElementById("jscrwarn2"))if(document.getElementById("jscrwarn2"))document.getElementById("jscrwarn2").innerHTML="";}
 function Get(yourUrl){
 	let Httpreq = new XMLHttpRequest();
