@@ -20,7 +20,7 @@ function print_download2(ih, name, pos) {
 	if (pos) after = '<br /><br />' + dlbtn; else before = dlbtn + '<br /><br />';
 
 	return before + '<a href="magnet:?xt=urn:btih:'+ih+'&dn='+encodeURIComponent(name) + print_trackers() + '"><img src="' + static_server + '/images/icon-magnet.gif" /> Get This Torrent</a>' +
-	'<a href="' + 'https://nord-vpn.pages.dev/' + '" target="_NEW" style="color:#009" class="hyper-link">Download Anonymously</a>' + after;
+	'<a href="' + 'https://nord-vpn.pages.dev/' + '" target="_NEW" style="color:#009" class="hyper-link">Click Here & Stay Anonymous with a VPN</a>' + after;
 }
 function print_trackers() {
 	let tr = '&tr=' + encodeURIComponent('udp://tracker.opentrackr.org:1337');
