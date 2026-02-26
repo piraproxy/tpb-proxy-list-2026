@@ -210,71 +210,79 @@ function make_filelist() {
 	}
 }
 function make_search() {
-	let cats='', lnk='category:', json_obj, i=0, cpage;
-	let qu = getParameterByName('q');
+    let cats='', lnk='category:', json_obj, i=0, cpage;
+    let qu = getParameterByName('q');
 
-	if (getParameterByName('cat')) cats = cats + getParameterByName('cat');
+    if (getParameterByName('cat')) cats = cats + getParameterByName('cat');
 
-	if (getParameterByName('audio')) cats=cats+',100';
-	if (getParameterByName('video')) cats=cats+',200';
-	if (getParameterByName('apps'))  cats=cats+',300';
-	if (getParameterByName('games')) cats=cats+',400';
-	if (getParameterByName('porn'))  cats=cats+',500';
-	if (getParameterByName('other')) cats=cats+',600';
-	if (cats[0] == ',') cats = cats.substring(1);
+    if (getParameterByName('audio')) cats=cats+',100';
+    if (getParameterByName('video')) cats=cats+',200';
+    if (getParameterByName('apps'))  cats=cats+',300';
+    if (getParameterByName('games')) cats=cats+',400';
+    if (getParameterByName('porn'))  cats=cats+',500';
+    if (getParameterByName('other')) cats=cats+',600';
+    if (cats[0] == ',') cats = cats.substring(1);
 
-	if (qu.substring(0,13) == 'top100:recent') {
-		document.getElementById("tlt").innerHTML='Recent torrents';
-		json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu)));
-	} else if (qu.substring(0,7) == 'top100:') {
-		json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu)));
-		document.getElementById("tlt").innerHTML='Top 100: ' + print_top100_title(qu.substring(7));
-		lnk='top100:';
-	} else if (qu.substring(0,9) == 'category:') {
-		json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu)));
-		document.getElementById("tlt").innerHTML='Browse ' + print_category(qu.substring(9));
-	} else if (qu.substring(0,5) == 'user:') {
-		json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu)));
-		document.getElementById("tlt").innerHTML='User: ' + htmlEntities(qu.substring(5));
-	} else {
-		json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu) + '&cat=' + cats ));
-		document.getElementById("tlt").innerHTML='Results for: ' + htmlEntities(qu);
-	}
+    if (qu.substring(0,13) == 'top100:recent') {
+        document.getElementById("tlt").innerHTML='Recent torrents';
+        json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu)));
+    } else if (qu.substring(0,7) == 'top100:') {
+        json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu)));
+        document.getElementById("tlt").innerHTML='Top 100: ' + print_top100_title(qu.substring(7));
+        lnk='top100:';
+    } else if (qu.substring(0,9) == 'category:') {
+        json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu)));
+        document.getElementById("tlt").innerHTML='Browse ' + print_category(qu.substring(9));
+    } else if (qu.substring(0,5) == 'user:') {
+        json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu)));
+        document.getElementById("tlt").innerHTML='User: ' + htmlEntities(qu.substring(5));
+    } else {
+        json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu) + '&cat=' + cats ));
+        document.getElementById("tlt").innerHTML='Results for: ' + htmlEntities(qu);
+    }
 
-	let elements = json_obj;
-	for (element in elements) {
-		if (i == 1) {
-			document.write('\n<li class="list-entry alt" id="st">\n');
-			i=0;
-		} else {
-			document.write('\n<li class="list-entry" id="st">\n');
-			i=1;
-		}
-		document.write('<span class="list-item item-type">' + print_category(elements[element]['category'], lnk) + '</span>');
-		document.write('<span class="list-item item-name item-title"><a href="/torrent.html?id='+elements[element]['id']+'">' + elements[element]['name']+'</a></span>');
-		document.write('<span class="list-item item-uploaded">' + print_date(elements[element]['added']) + '</span>');
-		document.write('<span class="item-icons">' + print_magnet(elements[element]['info_hash'], elements[element]['name']) + print_status(elements[element]['status']) + '</span>');
-		document.write('<span class="list-item item-size">' + print_size(elements[element]['size'], 0) + '<input type="hidden" name="size" value="' + elements[element]['size'] + '"/></span>');
-		document.write('<span class="list-item item-seed">' + elements[element]['seeders'] + '</span>');
-		document.write('<span class="list-item item-leech">' + elements[element]['leechers'] + '&nbsp;</span>');
-		document.write('<span class="list-item item-user">' + print_username(elements[element]['username']) + '</span>\n</li>\n');
-	}
+    // FIX: Check if json_obj is array and use proper for loop
+    if (!Array.isArray(json_obj) || json_obj.length === 0) {
+        document.write('<li class="list-entry">No results found</li>');
+        document.write('</ol>\n');
+        document.write('</section>\n');
+        return;
+    }
+
+    let elements = json_obj;
+    for (let idx = 0; idx < elements.length; idx++) {
+        let element = elements[idx];
+        if (i == 1) {
+            document.write('\n<li class="list-entry alt" id="st">\n');
+            i=0;
+        } else {
+            document.write('\n<li class="list-entry" id="st">\n');
+            i=1;
+        }
+        document.write('<span class="list-item item-type">' + print_category(element.category, lnk) + '</span>');
+        document.write('<span class="list-item item-name item-title"><a href="/torrent.html?id='+element.id+'">' + element.name+'</a></span>');
+        document.write('<span class="list-item item-uploaded">' + print_date(element.added) + '</span>');
+        document.write('<span class="item-icons">' + print_magnet(element.info_hash, element.name) + print_status(element.status) + '</span>');
+        document.write('<span class="list-item item-size">' + print_size(element.size, 0) + '<input type="hidden" name="size" value="' + element.size + '"/></span>');
+        document.write('<span class="list-item item-seed">' + element.seeders + '</span>');
+        document.write('<span class="list-item item-leech">' + element.leechers + '&nbsp;</span>');
+        document.write('<span class="list-item item-user">' + print_username(element.username) + '</span>\n</li>\n');
+    }
     document.write('</ol>\n');
 
-	if (qu.substring(0,5) == 'user:') {
-		document.write('<center>\n');
-		if (get_q_part(qu, 1)) print_pageselector( get_q_part(qu, 1), Number(get_q_part(qu, 2)), '/search.html?q=user:' + htmlEntities(get_q_part(qu, 1)) );
-		document.write('<br />All torrents from this user <a href="/search.html?q=user:' + htmlEntities(get_q_part(qu, 1)) + ':today"><b>Today</b></a>&nbsp;|&nbsp;<a href="/search.html?q=user:' + htmlEntities(get_q_part(qu, 1)) + ':twodays">Last two days</a>&nbsp;|&nbsp;<a href="/search.html?q=user:' + htmlEntities(get_q_part(qu, 1)) + ':threedays">Last three days</a><br />');
-		document.write('</center>\n');
-	}
-	if (qu.substring(0,13) == 'top100:recent') {
-		document.write('<center>\n');
-		print_pageselector( 'recent', Number(get_q_part(qu, 2)), '/search.html?q=top100:recent' );
-		document.write('</center>\n');
-	}
+    if (qu.substring(0,5) == 'user:') {
+        document.write('<center>\n');
+        if (get_q_part(qu, 1)) print_pageselector( get_q_part(qu, 1), Number(get_q_part(qu, 2)), '/search.html?q=user:' + htmlEntities(get_q_part(qu, 1)) );
+        document.write('<br />All torrents from this user <a href="/search.html?q=user:' + htmlEntities(get_q_part(qu, 1)) + ':today"><b>Today</b></a>&nbsp;|&nbsp;<a href="/search.html?q=user:' + htmlEntities(get_q_part(qu, 1)) + ':twodays">Last two days</a>&nbsp;|&nbsp;<a href="/search.html?q=user:' + htmlEntities(get_q_part(qu, 1)) + ':threedays">Last three days</a><br />');
+        document.write('</center>\n');
+    }
+    if (qu.substring(0,13) == 'top100:recent') {
+        document.write('<center>\n');
+        print_pageselector( 'recent', Number(get_q_part(qu, 2)), '/search.html?q=top100:recent' );
+        document.write('</center>\n');
+    }
 
-	document.write('</section>\n');
-
+    document.write('</section>\n');
 }
 function get_q_part(stra, part) {
     if (part == 2) {
