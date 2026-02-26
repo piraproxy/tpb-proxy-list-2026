@@ -48,6 +48,7 @@ function print_status(status) {
 	return '&nbsp;';
 }
 function print_top100_title(cat) {
+	if (!cat) return 'All torrents';
 	let cc=cat.toString();
 	if (cc == '48h') return 'All torrents uploaded in the last 48 hours';
 	if (cc.substring(0,4) == '48h_') {
@@ -60,8 +61,9 @@ function print_top100_title(cat) {
 }
 function print_category(cat, lnk) {
 	if (typeof lnk === "undefined") lnk='category:';
+	if (typeof cat === 'undefined' || cat === null) return '';
 	let main, cc=cat.toString();
-        if (cat == 0) return '';
+    if (cat == 0) return '';
 	if (cc[0] == 1) main = 'Audio';
 	if (cc[0] == 2) main = 'Video';
 	if (cc[0] == 3) main = 'Applications';
@@ -84,9 +86,9 @@ function print_category(cat, lnk) {
 	if (cat == 207) return maintxt + 'HD Movies'+'</a>';
 	if (cat == 208) return maintxt + 'HD TV-Shows'+'</a>';
 	if (cat == 209) return maintxt + '3D'+'</a>';
-        if (cat == 210) return maintxt + 'CAM/TS'+'</a>';
-        if (cat == 211) return maintxt + 'UHD/4k Movies'+'</a>';
-        if (cat == 212) return maintxt + 'UHD/4k TV-Shows'+'</a>';
+    if (cat == 210) return maintxt + 'CAM/TS'+'</a>';
+    if (cat == 211) return maintxt + 'UHD/4k Movies'+'</a>';
+    if (cat == 212) return maintxt + 'UHD/4k TV-Shows'+'</a>';
 	if (cat == 299) return maintxt + 'Other'+'</a>';
 	if (cat == 301) return maintxt + 'Windows'+'</a>';
 	if (cat == 302) return maintxt + 'Mac/Apple'+'</a>';
@@ -196,17 +198,15 @@ function make_filelist() {
 	let json_obj = JSON.parse(Get(server + '/api/files?id='+encodeURIComponent(getParameterByName('id'))));
 	let elements = json_obj;
 	let i=0;
-        for (element in elements) {
-                if (i == 1) {
-                        document.write('\n<li class="alt">');
-                        i=0;
-                } else {
-                        document.write('\n<li>');
+    for (element in elements) {
+        if (i == 1) {
+            document.write('\n<li class="alt">');
+            i=0;
+        } else {
+            document.write('\n<li>');
 			i=1;
-                }
-
+        }
 		document.write('<span class="file-name">' + elements[element]['name'][0] + '</span><span class="file-size">' + print_size(elements[element]['size'][0], 0) + '</span></li>\n');
-
 	}
 }
 function make_search() {
@@ -225,9 +225,9 @@ function make_search() {
 
 	if (qu.substring(0,13) == 'top100:recent') {
 		document.getElementById("tlt").innerHTML='Recent torrents';
-		json_obj = JSON.parse(Get(server + '/api/top'));
+		json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu)));
 	} else if (qu.substring(0,7) == 'top100:') {
-		json_obj = JSON.parse(Get(server + '/api/top'));
+		json_obj = JSON.parse(Get(server + '/api/search?q=' + encodeURIComponent(qu)));
 		document.getElementById("tlt").innerHTML='Top 100: ' + print_top100_title(qu.substring(7));
 		lnk='top100:';
 	} else if (qu.substring(0,9) == 'category:') {
@@ -259,7 +259,7 @@ function make_search() {
 		document.write('<span class="list-item item-leech">' + elements[element]['leechers'] + '&nbsp;</span>');
 		document.write('<span class="list-item item-user">' + print_username(elements[element]['username']) + '</span>\n</li>\n');
 	}
-        document.write('</ol>\n');
+    document.write('</ol>\n');
 
 	if (qu.substring(0,5) == 'user:') {
 		document.write('<center>\n');
@@ -277,22 +277,22 @@ function make_search() {
 
 }
 function get_q_part(stra, part) {
-        if (part == 2) {
-                if (stra.split(':').length == 2) return 0;
-                let pg=stra.split(':')[stra.split(':').length-1];
-                if (isNaN(pg)) return 0;
-                if (pg == '') return 0;
-                return Number(pg);
-        }
-        return stra.split(':')[part];
+    if (part == 2) {
+        if (stra.split(':').length == 2) return 0;
+        let pg=stra.split(':')[stra.split(':').length-1];
+        if (isNaN(pg)) return 0;
+        if (pg == '') return 0;
+        return Number(pg);
+    }
+    return stra.split(':')[part];
 }
 function setAll() {
-        document.forms['q'].elements['audio'].checked = false;
-        document.forms['q'].elements['video'].checked = false;
-        document.forms['q'].elements['apps'].checked  = false;
-        document.forms['q'].elements['games'].checked = false;
-        document.forms['q'].elements['porn'].checked  = false;
-        document.forms['q'].elements['other'].checked = false;
+    document.forms['q'].elements['audio'].checked = false;
+    document.forms['q'].elements['video'].checked = false;
+    document.forms['q'].elements['apps'].checked  = false;
+    document.forms['q'].elements['games'].checked = false;
+    document.forms['q'].elements['porn'].checked  = false;
+    document.forms['q'].elements['other'].checked = false;
 }
 function rmAll() {
 	document.forms['q'].elements['all'].checked = false;
@@ -345,7 +345,7 @@ function print_footer() {
 '</footer>\n');
 }
 function print_header1() {
-	document.write('<section class="col-left" id="logo"><a href="/index.html"><img src="' + static_server + '/images/tpbsmall_notext.jpg" alt="The Pirate Bay"></a></section>\n',
+	document.write('<section class="col-left" id="logo"><a href="/index.html"><img src="' + static_server + '/images/tpbsmall_notext.gif" alt="The Pirate Bay"></a></section>\n',
 '<section class="col-center">\n',
 '<nav>\n',
 '<a href="/index.html" title="Search Torrents"><strong>Search&nbsp;Torrents</strong></a> |\n',
@@ -426,30 +426,30 @@ function print_header2() {
 function mark_selected() {
 	let scate = document.getElementById('cat');
 	if (scate) {
-        	let ct = getParameterByName('cat');
-	        if ((Number(ct) > 99) && (Number(ct) < 700)) {
-        	        scate.value = ct;
-	        } else {
-        	        scate.value = 0;
-	        }
+        let ct = getParameterByName('cat');
+        if ((Number(ct) > 99) && (Number(ct) < 700)) {
+            scate.value = ct;
+        } else {
+            scate.value = 0;
+        }
 	}
 }
 function print_search() {
-        document.write('<section class="col-center">\n',
+    document.write('<section class="col-center">\n',
 '<input type="text" id="flist" onkeyup="filter_list2()" placeholder="Filter names.." size=40>');
 
 	document.write(' Quick Filters: ',
-                '<label title="720p"><input   name="720p"   id="f_720p"   onclick="filter_list2();" type="checkbox">720p</label>&nbsp;&nbsp;',
-                '<label title="1080p"><input  name="1080p"  id="f_1080p"  onclick="filter_list2();" type="checkbox">1080p</label>&nbsp;&nbsp;',
-                '<label title="2160p"><input  name="2160p"  id="f_2160p"  onclick="filter_list2();" type="checkbox">2160p</label>&nbsp;&nbsp;',
-                '<label title="x264"><input   name="x264"   id="f_x264"   onclick="filter_list2();" type="checkbox">x264</label>&nbsp;&nbsp;',
-                '<label title="h264"><input   name="h264"   id="f_h264"   onclick="filter_list2();" type="checkbox">h264</label>&nbsp;&nbsp;',
-                '<label title="x265"><input   name="x265"   id="f_x265"   onclick="filter_list2();" type="checkbox">x265</label>&nbsp;&nbsp;',
-                '<label title="h265"><input   name="h265"   id="f_h265"   onclick="filter_list2();" type="checkbox">h265</label>&nbsp;&nbsp;',
-                '<label title="WEBRip"><input name="webrip" id="f_webrip" onclick="filter_list2();" type="checkbox">WEBRip</label>&nbsp;&nbsp;',
-                '<label title="BluRay"><input name="bluray" id="f_bluray" onclick="filter_list2();" type="checkbox">BluRay</label>&nbsp;&nbsp;',
-                '<label title="HDR"><input    name="hdr"    id="f_hdr"    onclick="filter_list2();" type="checkbox">HDR</label>&nbsp;&nbsp;',
-                '<label title="HEVC"><input   name="hevc"   id="f_hevc"   onclick="filter_list2();" type="checkbox">HEVC</label>');
+        '<label title="720p"><input   name="720p"   id="f_720p"   onclick="filter_list2();" type="checkbox">720p</label>&nbsp;&nbsp;',
+        '<label title="1080p"><input  name="1080p"  id="f_1080p"  onclick="filter_list2();" type="checkbox">1080p</label>&nbsp;&nbsp;',
+        '<label title="2160p"><input  name="2160p"  id="f_2160p"  onclick="filter_list2();" type="checkbox">2160p</label>&nbsp;&nbsp;',
+        '<label title="x264"><input   name="x264"   id="f_x264"   onclick="filter_list2();" type="checkbox">x264</label>&nbsp;&nbsp;',
+        '<label title="h264"><input   name="h264"   id="f_h264"   onclick="filter_list2();" type="checkbox">h264</label>&nbsp;&nbsp;',
+        '<label title="x265"><input   name="x265"   id="f_x265"   onclick="filter_list2();" type="checkbox">x265</label>&nbsp;&nbsp;',
+        '<label title="h265"><input   name="h265"   id="f_h265"   onclick="filter_list2();" type="checkbox">h265</label>&nbsp;&nbsp;',
+        '<label title="WEBRip"><input name="webrip" id="f_webrip" onclick="filter_list2();" type="checkbox">WEBRip</label>&nbsp;&nbsp;',
+        '<label title="BluRay"><input name="bluray" id="f_bluray" onclick="filter_list2();" type="checkbox">BluRay</label>&nbsp;&nbsp;',
+        '<label title="HDR"><input    name="hdr"    id="f_hdr"    onclick="filter_list2();" type="checkbox">HDR</label>&nbsp;&nbsp;',
+        '<label title="HEVC"><input   name="hevc"   id="f_hevc"   onclick="filter_list2();" type="checkbox">HEVC</label>');
 
 	document.write('<ol id="torrents" class="view-single">\n',
 '<li class="list-header">\n',
@@ -462,10 +462,10 @@ function print_search() {
 '<span class="list-item list-header item-leech"><label onclick="sortlist(7);" title="Order by Leechers">LE</label></span>\n',
 '<span class="list-item list-header item-user"><label onclick="sortlist(8);" title="Order by ULed by">ULed by</label></span>\n',
 '</li>\n');
-        if (typeof make_search !== "undefined" ) make_search();
+    if (typeof make_search !== "undefined" ) make_search();
 }
 function print_browse() {
-        document.write('<section class="col-center">\n',
+    document.write('<section class="col-center">\n',
 '<dl class="row">\n',
 '<div class="category_list">\n',
 '<div>\n',
@@ -553,7 +553,7 @@ function print_browse() {
 '</section>\n');
 }
 function print_top() {
-        document.write('<section class="col-center">\n',
+    document.write('<section class="col-center">\n',
 '<dl class="row">\n',
 '<div class="category_list">\n',
 '<b><a href="/search.html?q=top100:all">Total Top100</a></b> (<a href="/search.html?q=top100:48h">48h</a>)\n',
@@ -646,64 +646,62 @@ function print_top() {
 '</section>\n');
 }
 function print_selector_number(i, curpage, linkto) {
-        let before, after;
-        if (i == curpage) {
-                before = '<b>';
-                after = '</b>';
-        } else {
-                before = '<a href="' + linkto + ':' + i + '">';
-                after = '</a>';
-        }
-        document.write(before, i+1, after, ' \n');
+    let before, after;
+    if (i == curpage) {
+        before = '<b>';
+        after = '</b>';
+    } else {
+        before = '<a href="' + linkto + ':' + i + '">';
+        after = '</a>';
+    }
+    document.write(before, i+1, after, ' \n');
 }
 function print_pageselector(username, curpage, linkto) {
-        let json_obj = JSON.parse(Get(server + '/api/search?q=pcnt:' + username ));
-        let elements = json_obj;
-        let pages = Number(elements)-1;
-        let before, after, o, i, strt, stp;
+    let json_obj = JSON.parse(Get(server + '/api/search?q=pcnt:' + username ));
+    let elements = json_obj;
+    let pages = Number(elements)-1;
+    let before, after, o, i, strt, stp;
 
-        if (pages < 2) return '';
+    if (pages < 2) return '';
 
-        if (pages < 30) {
-                for (i=0; i < pages; i++) {
-                        print_selector_number(i, curpage, linkto);
-                }
-        } else {
-                if (curpage-10 > 5) {
-                        strt=curpage-10;
-                        if (strt > pages-25) strt=pages-25;
-
-                        print_selector_number(0, curpage, linkto);
-                        print_selector_number(1, curpage, linkto);
-                        print_selector_number(2, curpage, linkto);
-                        document.write('... ');
-                } else {
-                        strt=0;
-                }
-                if (pages-curpage-10 > 5) {
-                        stp=curpage+11;
-                        if (stp < 27) stp=26;
-                        if (stp > pages) stp=pages;
-                } else {
-                        if (strt == 0) {
-                                stp=16;
-                        } else {
-                                stp=pages;
-                        }
-                }
-                for (i=strt; i < stp; i++) {
-                        print_selector_number(i, curpage, linkto);
-
-                }
-                if (pages-curpage-10 > 5) {
-                        document.write('... ');
-                        print_selector_number(pages-2, curpage, linkto);
-                        print_selector_number(pages-1, curpage, linkto);
-                        print_selector_number(pages, curpage, linkto);
-                }
-
+    if (pages < 30) {
+        for (i=0; i < pages; i++) {
+            print_selector_number(i, curpage, linkto);
         }
-        document.write('<br />\n');
+    } else {
+        if (curpage-10 > 5) {
+            strt=curpage-10;
+            if (strt > pages-25) strt=pages-25;
+
+            print_selector_number(0, curpage, linkto);
+            print_selector_number(1, curpage, linkto);
+            print_selector_number(2, curpage, linkto);
+            document.write('... ');
+        } else {
+            strt=0;
+        }
+        if (pages-curpage-10 > 5) {
+            stp=curpage+11;
+            if (stp < 27) stp=26;
+            if (stp > pages) stp=pages;
+        } else {
+            if (strt == 0) {
+                stp=16;
+            } else {
+                stp=pages;
+            }
+        }
+        for (i=strt; i < stp; i++) {
+            print_selector_number(i, curpage, linkto);
+        }
+        if (pages-curpage-10 > 5) {
+            document.write('... ');
+            print_selector_number(pages-2, curpage, linkto);
+            print_selector_number(pages-1, curpage, linkto);
+            print_selector_number(pages, curpage, linkto);
+        }
+    }
+    document.write('<br />\n');
 }
 function filter_list2() {
   let input, filter, ul, li, a, i, txtValue;
