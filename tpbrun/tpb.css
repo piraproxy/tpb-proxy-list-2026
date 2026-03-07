@@ -1,1 +1,857 @@
+/*
+PROXY X - Retro Terminal Skin (tpb.run aesthetic)
+Neon green phosphor on dark background
+*/
 
+/* ============================================
+   FONTS & BASE
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #0A0D09;
+    color: #33FE33;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    line-height: 1.3;
+    min-height: 100vh;
+}
+
+/* HTML5 elements */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+    color: #33FE33;
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+a, a:link, a:visited, a:focus {
+    color: #33FE33;
+    text-decoration: none;
+    border-bottom: 1px none #33FE33;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    border-bottom: 1px solid #33FE33;
+    text-shadow: 0 0 5px #33FE33;
+}
+
+/* Remove border from specific elements */
+#icons a, h1 a:hover, .sp, tr a, #logo a, img {
+    border-bottom: 0 !important;
+}
+
+table a:hover {
+    text-decoration: underline;
+}
+
+.download a:hover {
+    text-decoration: none !important;
+    border-color: #090;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3 {
+    font-family: 'VT323', monospace;
+    font-weight: normal;
+    color: #33FE33;
+}
+
+h1 {
+    font-size: 1.8em;
+    margin: 0.5em 0;
+    text-align: center;
+    border-bottom: 1px solid #33FE33;
+    padding-bottom: 0.3em;
+}
+
+h2 {
+    width: 98%;
+    background: #0A0D09;
+    border-bottom: 1px solid #33FE33;
+    padding: 4px 0.5%;
+    clear: both;
+    font-size: 125%;
+}
+
+h3 {
+    text-align: center;
+    font-size: 150%;
+    width: 7.8em;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: .1em solid #33FE33;
+    margin: 0.5em auto;
+    -webkit-animation: typing 8s steps(19, end), blink-caret 1s step-end infinite;
+    -moz-animation: typing 8s steps(19, end), blink-caret 1s step-end infinite;
+}
+
+/* Typing animation */
+@-webkit-keyframes typing {
+    from { width: 0 }
+    to { width: 7.8em }
+}
+
+@-moz-keyframes typing {
+    from { width: 0 }
+    to { width: 7.8em }
+}
+
+@-webkit-keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #33FE33 }
+}
+
+@-moz-keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #33FE33 }
+}
+
+/* ============================================
+   LAYOUT STRUCTURE
+   ============================================ */
+.align-center {
+    text-align: center;
+}
+
+.browse {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.col-left {
+    width: 160px;
+    flex-shrink: 0;
+}
+
+.col-center {
+    flex: 1;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.col-right {
+    width: 160px;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   HEADER & NAVIGATION
+   ============================================ */
+header {
+    background: #0A0D09;
+    border-bottom: 1px solid #33FE33;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+header.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+header nav {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+header nav ul li {
+    padding: 0 9px;
+    line-height: 11px;
+    border-right: 1px solid #333;
+}
+
+header nav ul li:last-child {
+    border: 0;
+}
+
+header nav a {
+    font-size: 1.1em;
+}
+
+header nav strong {
+    color: #33FE33;
+    text-shadow: 0 0 10px #33FE33;
+}
+
+/* Home page specific header */
+#home header {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+#home header nav {
+    margin-top: 20px;
+}
+
+#home header img {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 5px #33FE33);
+}
+
+/* Search input in header */
+#search {
+    background: #0A0D09;
+    border: 2px solid #33FE33;
+    color: #33FE33;
+    font-family: 'VT323', monospace;
+    font-size: 1.2em;
+    padding: 8px 12px;
+    width: 300px;
+    max-width: 100%;
+}
+
+#search:focus {
+    outline: none;
+    box-shadow: 0 0 10px #33FE33;
+}
+
+#search::placeholder {
+    color: #1a5c1a;
+}
+
+/* ============================================
+   FORMS & INPUTS
+   ============================================ */
+input[type="text"],
+input[type="search"],
+textarea,
+select {
+    background: #0A0D09;
+    border: 2px solid #33FE33;
+    color: #33FE33;
+    font-family: 'VT323', monospace;
+    font-size: 1.1em;
+    padding: 8px;
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 10px #33FE33;
+}
+
+input[type="submit"],
+button {
+    background: #0A0D09;
+    color: #33FE33;
+    border: 2px solid #33FE33;
+    font-family: 'VT323', monospace;
+    font-size: 1.1em;
+    padding: 8px 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background: #33FE33;
+    color: #0A0D09;
+    box-shadow: 0 0 15px #33FE33;
+}
+
+/* Checkboxes */
+input[type=checkbox] {
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    -webkit-appearance: none;
+    outline: 0;
+    border: 1px solid #33FE33;
+    background: #0A0D09;
+    cursor: pointer;
+}
+
+input[type=checkbox]:checked {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path id="checkbox-3-icon" fill="%2333FE33" d="M81,81v350h350V81H81z M227.383,345.013l-81.476-81.498l34.69-34.697l46.783,46.794l108.007-108.005 l34.706,34.684L227.383,345.013z"/></svg>');
+}
+
+input[type=checkbox]:not(:checked) {
+    background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"> <path id="checkbox-9-icon" fill="%2333FE33" d="M391,121v270H121V121H391z M431,81H81v350h350V81z"></path> </svg>');
+}
+
+/* Form boxes on home page */
+.form-box {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #1a3d1a;
+    background: #0f120f;
+}
+
+.form-box label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ============================================
+   HOME PAGE SPECIFIC
+   ============================================ */
+#home main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#home form {
+    margin-top: 20px;
+}
+
+#home form > div {
+    margin: 15px 0;
+}
+
+#home input[name="q"] {
+    width: 100%;
+    max-width: 400px;
+    font-size: 1.3em;
+    text-align: center;
+}
+
+/* ============================================
+   TABLES (Torrent Lists)
+   ============================================ */
+table {
+    border-collapse: collapse;
+    empty-cells: show;
+    width: 100%;
+    margin: 1em 0;
+}
+
+th {
+    background: #33FE33;
+    color: #0A0D09;
+    text-align: left;
+    padding: 8px;
+    font-weight: normal;
+    font-size: 1.1em;
+    white-space: nowrap;
+    border-right: 1px solid #0A0D09;
+}
+
+th:last-child {
+    border-right: none;
+}
+
+th a {
+    color: #0A0D09 !important;
+}
+
+th a:hover {
+    text-decoration: underline;
+}
+
+td {
+    padding: 8px;
+    border-bottom: 1px solid #1a3d1a;
+}
+
+tr {
+    background: #0A0D09;
+    transition: background 0.2s;
+}
+
+tr:hover {
+    background: #0f1f0f;
+}
+
+/* Specific table styles for torrent list */
+table#list {
+    width: 100%;
+    max-width: 1000px;
+    margin: 2em auto;
+    font-size: 0.95em;
+}
+
+table#list th {
+    background: #33FE33;
+    color: #0A0D09;
+    text-align: left;
+    height: 1em;
+}
+
+table#list td {
+    vertical-align: middle;
+}
+
+/* Column specific alignments */
+.tar {
+    text-align: right;
+}
+
+.tal {
+    text-align: left;
+}
+
+.tac {
+    text-align: center;
+}
+
+/* ============================================
+   TORRENT DETAILS PAGE
+   ============================================ */
+#description_container {
+    background: #0A0D09;
+    border: 1px solid #33FE33;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+#metadata {
+    display: flex;
+    gap: 40px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.col-meta {
+    flex: 1;
+    min-width: 200px;
+}
+
+.col-meta div {
+    margin: 8px 0;
+    display: flex;
+}
+
+.col-meta dt {
+    font-weight: normal;
+    color: #33FE33;
+    min-width: 100px;
+    opacity: 0.8;
+}
+
+.col-meta dd {
+    margin: 0;
+    color: #33FE33;
+}
+
+#description_text {
+    background: #0f120f;
+    border: 1px solid #1a3d1a;
+    padding: 15px;
+    margin: 20px 0;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    font-family: 'VT323', monospace;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.links {
+    margin: 15px 0;
+    padding: 10px;
+    background: #0f120f;
+    border-left: 3px solid #33FE33;
+}
+
+#filelist {
+    background: #0f120f;
+    border: 1px solid #1a3d1a;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+#filelist ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+#filelist li {
+    margin: 5px 0;
+    font-family: 'VT323', monospace;
+}
+
+/* ============================================
+   ICONS & SPRITES
+   ============================================ */
+.sp {
+    display: inline-block;
+    height: 12px;
+    width: 11px;
+    margin: 0 0 -3px 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Magnet and download links */
+.dl-torrent,
+.dl-magnet {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border: 1px solid #33FE33;
+    margin: 0 5px;
+    font-size: 0.9em;
+}
+
+.dl-torrent:hover,
+.dl-magnet:hover {
+    background: #33FE33;
+    color: #0A0D09;
+}
+
+.dl-torrent::before {
+    content: "↓";
+    font-weight: bold;
+}
+
+.dl-magnet::before {
+    content: "⚲";
+    font-weight: bold;
+}
+
+/* Status icons */
+.vip,
+.trus,
+.help {
+    display: inline-block;
+    padding: 2px 6px;
+    border: 1px solid;
+    font-size: 0.8em;
+    margin: 0 2px;
+}
+
+.vip {
+    color: #ffd700;
+    border-color: #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.trus {
+    color: #00ff00;
+    border-color: #00ff00;
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.help {
+    color: #ff6600;
+    border-color: #ff6600;
+    background: rgba(255, 102, 0, 0.1);
+}
+
+/* ============================================
+   AD BLOCKS (Hidden by default, styled if shown)
+   ============================================ */
+.adblock {
+    display: none; /* Hide ads by default */
+}
+
+.ad728,
+.ad468,
+.ad234,
+.ad120 {
+    background: #0f120f;
+    border: 1px dashed #1a3d1a;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a5c1a;
+    font-size: 0.8em;
+}
+
+.ad728 { width: 728px; height: 90px; }
+.ad468 { width: 468px; height: 60px; }
+.ad234 { width: 234px; height: 60px; }
+.ad120 { width: 120px; height: 600px; }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+    margin: 2em auto;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #1a3d1a;
+    color: #33FE33;
+    font-size: 0.9em;
+}
+
+footer nav {
+    margin-bottom: 1em;
+}
+
+footer p {
+    overflow-wrap: break-word;
+    line-height: 1.8;
+}
+
+footer a {
+    margin: 0 5px;
+}
+
+/* Crypto addresses styling */
+footer b a {
+    font-family: 'VT323', monospace;
+    letter-spacing: 1px;
+}
+
+/* VPN Bar styling */
+#vpn-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0A0D09;
+    border-top: 2px solid #33FE33;
+    padding: 12px 20px;
+    text-align: center;
+    z-index: 9999;
+    box-shadow: 0 -2px 20px rgba(51, 254, 51, 0.3);
+}
+
+#vpn-bar p {
+    margin: 0;
+    color: #33FE33;
+    font-size: 1.1em;
+}
+
+#vpn-bar a {
+    display: inline-block;
+    background: #33FE33;
+    color: #0A0D09;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 0;
+    margin-left: 10px;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px #33FE33;
+    border: none;
+}
+
+#vpn-bar a:hover {
+    background: #0A0D09;
+    color: #33FE33;
+    box-shadow: 0 0 20px #33FE33;
+}
+
+/* ============================================
+   MESSAGES & ERRORS
+   ============================================ */
+#error {
+    border: 1px solid #ff0000;
+    color: #ff0000;
+    margin: 2em auto;
+    padding: 15px 20px;
+    max-width: 600px;
+    background: rgba(255, 0, 0, 0.1);
+}
+
+#error span {
+    display: block;
+    font-weight: normal;
+    margin: 3px 0 5px 0;
+}
+
+#info {
+    border: 1px solid #33FE33;
+    padding: 15px;
+    margin: 1em 0;
+    background: rgba(51, 254, 51, 0.05);
+}
+
+/* ============================================
+   SCROLLBARS (Webkit)
+   ============================================ */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0A0D09;
+    border: 1px solid #1a3d1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #33FE33;
+    border: 2px solid #0A0D09;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #4fff4f;
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+    background: #33FE33;
+    color: #0A0D09;
+}
+
+::-moz-selection {
+    background: #33FE33;
+    color: #0A0D09;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+    .browse {
+        flex-direction: column;
+    }
+    
+    .col-left,
+    .col-right {
+        display: none; /* Hide side ads on smaller screens */
+    }
+    
+    .col-center {
+        width: 100%;
+        padding: 0 10px;
+    }
+    
+    table#list {
+        font-size: 0.85em;
+    }
+    
+    th, td {
+        padding: 6px 4px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+    
+    header.row {
+        flex-direction: column;
+    }
+    
+    #search {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    h1 {
+        font-size: 1.4em;
+    }
+    
+    #vpn-bar p {
+        font-size: 0.9em;
+    }
+    
+    #vpn-bar a {
+        display: block;
+        margin: 10px auto 0;
+        max-width: 200px;
+    }
+    
+    .form-box {
+        display: block;
+        margin: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    table#list {
+        font-size: 0.75em;
+    }
+    
+    th, td {
+        padding: 4px 2px;
+    }
+    
+    /* Hide less important columns on very small screens */
+    table#list th:nth-child(3),
+    table#list td:nth-child(3),
+    table#list th:nth-child(5),
+    table#list td:nth-child(5) {
+        display: none;
+    }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.mt-1 { margin-top: 0.5em; }
+.mt-2 { margin-top: 1em; }
+.mt-3 { margin-top: 1.5em; }
+.mb-1 { margin-bottom: 0.5em; }
+.mb-2 { margin-bottom: 1em; }
+.mb-3 { margin-bottom: 1.5em; }
+
+/* Loading animation */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.loading {
+    animation: pulse 1.5s infinite;
+    color: #33FE33;
+}
+
+/* CRT scanline effect overlay (optional, can be enabled via JS) */
+.crt::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
