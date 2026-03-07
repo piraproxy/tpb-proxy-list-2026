@@ -1,6 +1,6 @@
 /*
-PROXY X - Retro Terminal Skin (tpb.run aesthetic)
-Neon green phosphor on dark background
+PROXY X - Retro Terminal Skin (Clean, No Glow)
+Neon green on dark background with scanline overlay
 */
 
 /* ============================================
@@ -24,6 +24,21 @@ body {
     font-size: 18px;
     line-height: 1.3;
     min-height: 100vh;
+    position: relative;
+}
+
+/* Scanline overlay */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://piraproxy.github.io/tpb-proxy-list-2026/tpbrun/scanline.png');
+    background-repeat: repeat;
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0.15;
 }
 
 /* HTML5 elements */
@@ -33,18 +48,16 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 /* ============================================
-   LINKS
+   LINKS (NO GLOW)
    ============================================ */
 a, a:link, a:visited, a:focus {
     color: #33FE33;
     text-decoration: none;
     border-bottom: 1px none #33FE33;
-    transition: all 0.2s ease;
 }
 
 a:hover {
     border-bottom: 1px solid #33FE33;
-    text-shadow: 0 0 5px #33FE33;
 }
 
 /* Remove border from specific elements */
@@ -62,7 +75,7 @@ table a:hover {
 }
 
 /* ============================================
-   TYPOGRAPHY
+   TYPOGRAPHY (NO GLOW, NO ANIMATION)
    ============================================ */
 h1, h2, h3 {
     font-family: 'VT323', monospace;
@@ -90,34 +103,7 @@ h2 {
 h3 {
     text-align: center;
     font-size: 150%;
-    width: 7.8em;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: .1em solid #33FE33;
-    margin: 0.5em auto;
-    -webkit-animation: typing 8s steps(19, end), blink-caret 1s step-end infinite;
-    -moz-animation: typing 8s steps(19, end), blink-caret 1s step-end infinite;
-}
-
-/* Typing animation */
-@-webkit-keyframes typing {
-    from { width: 0 }
-    to { width: 7.8em }
-}
-
-@-moz-keyframes typing {
-    from { width: 0 }
-    to { width: 7.8em }
-}
-
-@-webkit-keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: #33FE33 }
-}
-
-@-moz-keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: #33FE33 }
+    margin: 0.5em 0;
 }
 
 /* ============================================
@@ -127,28 +113,10 @@ h3 {
     text-align: center;
 }
 
-.browse {
-    display: flex;
-    justify-content: space-between;
+.content-wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    position: relative;
-}
-
-.col-left {
-    width: 160px;
-    flex-shrink: 0;
-}
-
-.col-center {
-    flex: 1;
-    max-width: 800px;
     padding: 0 20px;
-}
-
-.col-right {
-    width: 160px;
-    flex-shrink: 0;
 }
 
 /* ============================================
@@ -200,7 +168,6 @@ header nav a {
 
 header nav strong {
     color: #33FE33;
-    text-shadow: 0 0 10px #33FE33;
 }
 
 /* Home page specific header */
@@ -216,7 +183,6 @@ header nav strong {
 #home header img {
     max-width: 100%;
     height: auto;
-    filter: drop-shadow(0 0 5px #33FE33);
 }
 
 /* Search input in header */
@@ -233,7 +199,6 @@ header nav strong {
 
 #search:focus {
     outline: none;
-    box-shadow: 0 0 10px #33FE33;
 }
 
 #search::placeholder {
@@ -241,7 +206,7 @@ header nav strong {
 }
 
 /* ============================================
-   FORMS & INPUTS
+   FORMS & INPUTS (NO GLOW)
    ============================================ */
 input[type="text"],
 input[type="search"],
@@ -260,7 +225,6 @@ input[type="search"]:focus,
 textarea:focus,
 select:focus {
     outline: none;
-    box-shadow: 0 0 10px #33FE33;
 }
 
 input[type="submit"],
@@ -273,14 +237,12 @@ button {
     padding: 8px 16px;
     cursor: pointer;
     text-transform: uppercase;
-    transition: all 0.2s;
 }
 
 input[type="submit"]:hover,
 button:hover {
     background: #33FE33;
     color: #0A0D09;
-    box-shadow: 0 0 15px #33FE33;
 }
 
 /* Checkboxes */
@@ -346,13 +308,14 @@ input[type=checkbox]:not(:checked) {
 }
 
 /* ============================================
-   TABLES (Torrent Lists)
+   TABLES - PROPER COLUMN LAYOUT
    ============================================ */
 table {
     border-collapse: collapse;
     empty-cells: show;
     width: 100%;
     margin: 1em 0;
+    table-layout: fixed;
 }
 
 th {
@@ -364,6 +327,8 @@ th {
     font-size: 1.1em;
     white-space: nowrap;
     border-right: 1px solid #0A0D09;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 th:last-child {
@@ -381,34 +346,106 @@ th a:hover {
 td {
     padding: 8px;
     border-bottom: 1px solid #1a3d1a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
 }
 
 tr {
     background: #0A0D09;
-    transition: background 0.2s;
 }
 
 tr:hover {
     background: #0f1f0f;
 }
 
-/* Specific table styles for torrent list */
+/* Specific table styles for torrent list - COLUMN WIDTHS */
 table#list {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 2em auto;
     font-size: 0.95em;
 }
 
-table#list th {
-    background: #33FE33;
-    color: #0A0D09;
-    text-align: left;
-    height: 1em;
+/* Column width definitions */
+table#list th:nth-child(1),
+table#list td:nth-child(1) {
+    width: 50px;
+    text-align: center;
 }
 
+table#list th:nth-child(2),
+table#list td:nth-child(2) {
+    width: auto;
+    text-align: left;
+    white-space: normal;
+}
+
+table#list th:nth-child(3),
+table#list td:nth-child(3) {
+    width: 120px;
+    text-align: left;
+}
+
+table#list th:nth-child(4),
+table#list td:nth-child(4) {
+    width: 100px;
+    text-align: right;
+}
+
+table#list th:nth-child(5),
+table#list td:nth-child(5) {
+    width: 80px;
+    text-align: right;
+}
+
+table#list th:nth-child(6),
+table#list td:nth-child(6) {
+    width: 60px;
+    text-align: right;
+}
+
+table#list th:nth-child(7),
+table#list td:nth-child(7) {
+    width: 60px;
+    text-align: right;
+}
+
+table#list th:nth-child(8),
+table#list td:nth-child(8) {
+    width: 120px;
+    text-align: left;
+}
+
+/* Category icons column */
+table#list td:nth-child(1) img,
+table#list td:nth-child(1) .cat-icon {
+    max-width: 32px;
+    height: auto;
+}
+
+/* Name column - allow wrapping for long titles */
+table#list td:nth-child(2) {
+    white-space: normal;
+    line-height: 1.4;
+}
+
+/* Vert center alignment */
 table#list td {
     vertical-align: middle;
+}
+
+/* Links in table */
+table#list a {
+    display: inline;
+}
+
+/* Download links */
+table#list .dl-torrent,
+table#list .dl-magnet {
+    display: inline-block;
+    margin: 0 2px;
 }
 
 /* Column specific alignments */
@@ -569,33 +606,7 @@ table#list td {
 }
 
 /* ============================================
-   AD BLOCKS (Hidden by default, styled if shown)
-   ============================================ */
-.adblock {
-    display: none; /* Hide ads by default */
-}
-
-.ad728,
-.ad468,
-.ad234,
-.ad120 {
-    background: #0f120f;
-    border: 1px dashed #1a3d1a;
-    margin: 10px auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #1a5c1a;
-    font-size: 0.8em;
-}
-
-.ad728 { width: 728px; height: 90px; }
-.ad468 { width: 468px; height: 60px; }
-.ad234 { width: 234px; height: 60px; }
-.ad120 { width: 120px; height: 600px; }
-
-/* ============================================
-   FOOTER
+   FOOTER & VPN BAR (NO GLOW)
    ============================================ */
 footer {
     margin: 2em auto;
@@ -636,7 +647,9 @@ footer b a {
     padding: 12px 20px;
     text-align: center;
     z-index: 9999;
-    box-shadow: 0 -2px 20px rgba(51, 254, 51, 0.3);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    font-family: 'VT323', monospace;
 }
 
 #vpn-bar p {
@@ -652,17 +665,18 @@ footer b a {
     font-weight: bold;
     text-decoration: none;
     padding: 8px 16px;
-    border-radius: 0;
     margin-left: 10px;
     text-transform: uppercase;
-    box-shadow: 0 0 10px #33FE33;
     border: none;
+    font-family: 'VT323', monospace;
+    font-size: 1em;
 }
 
 #vpn-bar a:hover {
     background: #0A0D09;
     color: #33FE33;
-    box-shadow: 0 0 20px #33FE33;
+    border: 2px solid #33FE33;
+    padding: 6px 14px;
 }
 
 /* ============================================
@@ -691,7 +705,7 @@ footer b a {
 }
 
 /* ============================================
-   SCROLLBARS (Webkit)
+   SCROLLBARS (NO GLOW)
    ============================================ */
 ::-webkit-scrollbar {
     width: 12px;
@@ -729,17 +743,7 @@ footer b a {
    RESPONSIVE DESIGN
    ============================================ */
 @media (max-width: 1024px) {
-    .browse {
-        flex-direction: column;
-    }
-    
-    .col-left,
-    .col-right {
-        display: none; /* Hide side ads on smaller screens */
-    }
-    
-    .col-center {
-        width: 100%;
+    .content-wrapper {
         padding: 0 10px;
     }
     
@@ -749,6 +753,17 @@ footer b a {
     
     th, td {
         padding: 6px 4px;
+    }
+    
+    /* Adjust column widths for tablet */
+    table#list th:nth-child(3),
+    table#list td:nth-child(3) {
+        width: 100px;
+    }
+    
+    table#list th:nth-child(8),
+    table#list td:nth-child(8) {
+        width: 100px;
     }
 }
 
@@ -784,6 +799,14 @@ footer b a {
         display: block;
         margin: 3px;
     }
+    
+    /* Hide less important columns on mobile */
+    table#list th:nth-child(4),
+    table#list td:nth-child(4),
+    table#list th:nth-child(8),
+    table#list td:nth-child(8) {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
@@ -795,7 +818,7 @@ footer b a {
         padding: 4px 2px;
     }
     
-    /* Hide less important columns on very small screens */
+    /* Hide more columns on very small screens */
     table#list th:nth-child(3),
     table#list td:nth-child(3),
     table#list th:nth-child(5),
@@ -830,28 +853,8 @@ footer b a {
 .mb-2 { margin-bottom: 1em; }
 .mb-3 { margin-bottom: 1.5em; }
 
-/* Loading animation */
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
-
+/* Loading animation (subtle, no glow) */
 .loading {
-    animation: pulse 1.5s infinite;
+    opacity: 0.5;
     color: #33FE33;
-}
-
-/* CRT scanline effect overlay (optional, can be enabled via JS) */
-.crt::before {
-    content: " ";
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    z-index: 2;
-    background-size: 100% 2px, 3px 100%;
-    pointer-events: none;
 }
