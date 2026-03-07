@@ -1,1 +1,556 @@
+/* ============================================
+   TERMINAL THEME - Dark Terminal Aesthetic
+   ============================================ */
 
+:root {
+  --bg-primary: #0c0c0c;
+  --bg-secondary: #141414;
+  --bg-tertiary: #1a1a1a;
+  --text-primary: #00ff41;
+  --text-secondary: #00cc33;
+  --text-dim: #008f11;
+  --text-muted: #005511;
+  --border-color: #003300;
+  --accent: #00ff41;
+  --error: #ff0000;
+  --warning: #ffaa00;
+  --info: #00aaff;
+  --font-mono: 'Courier New', Courier, 'Lucida Console', Monaco, monospace;
+  --font-size: 14px;
+  --line-height: 1.6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  min-height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   HEADER & NAVIGATION
+   ============================================ */
+
+header {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem;
+}
+
+header nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+header section {
+  text-align: center;
+}
+
+header img {
+  max-width: 100%;
+  height: auto;
+  filter: grayscale(100%) brightness(0.8) sepia(100%) hue-rotate(90deg) saturate(3);
+}
+
+header a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid transparent;
+}
+
+header a:hover {
+  color: var(--text-primary);
+  border-color: var(--text-dim);
+  background-color: var(--bg-tertiary);
+}
+
+header strong {
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+
+main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+h1, h2, h3 {
+  color: var(--text-primary);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 1.4rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+/* ============================================
+   FORMS & INPUTS
+   ============================================ */
+
+form {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+
+input[type="search"],
+input[type="text"] {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--text-dim);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  width: 100%;
+  max-width: 500px;
+  outline: none;
+}
+
+input[type="search"]:focus,
+input[type="text"]:focus {
+  border-color: var(--text-primary);
+}
+
+input[type="submit"] {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--text-dim);
+  padding: 0.5rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin: 0.5rem 0.25rem;
+}
+
+input[type="submit"]:hover {
+  background-color: var(--text-dim);
+  color: var(--bg-primary);
+}
+
+input[type="checkbox"] {
+  accent-color: var(--text-primary);
+}
+
+label {
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.form-box {
+  display: inline-block;
+  margin: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.form-box:hover {
+  border-color: var(--text-dim);
+}
+
+/* ============================================
+   TABLES (Search Results)
+   ============================================ */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+thead {
+  background-color: var(--bg-secondary);
+  border-bottom: 2px solid var(--text-dim);
+}
+
+th {
+  text-align: left;
+  padding: 0.75rem;
+  color: var(--text-primary);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: top;
+}
+
+tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+/* Category colors */
+.cat-101, .cat-102, .cat-103, .cat-104 { color: var(--text-secondary); } /* Audio */
+.cat-201, .cat-202, .cat-203, .cat-204, .cat-205, .cat-206, .cat-207 { color: var(--info); } /* Video */
+.cat-301, .cat-302, .cat-303, .cat-304 { color: var(--warning); } /* Applications */
+.cat-401, .cat-402, .cat-403, .cat-404, .cat-405, .cat-406, .cat-407 { color: var(--error); } /* Games */
+.cat-501, .cat-502, .cat-503, .cat-504, .cat-505, .cat-506 { color: #ff00ff; } /* Porn */
+.cat-601, .cat-602, .cat-603, .cat-604, .cat-605, .cat-606, .cat-607, .cat-608, .cat-609, .cat-699 { color: var(--text-dim); } /* Other */
+
+/* ============================================
+   TORRENT DETAILS
+   ============================================ */
+
+#description_container {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+}
+
+#metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+.col-meta {
+  flex: 1;
+  min-width: 250px;
+  margin: 0;
+}
+
+dl {
+  margin: 0;
+}
+
+dt {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+dd {
+  color: var(--text-primary);
+  margin-left: 0;
+  margin-bottom: 0.25rem;
+}
+
+#description_text {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  margin: 1rem 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+#filelist {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  margin: 1rem 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+#filelist ol {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+#filelist li {
+  padding: 0.25rem 0;
+  border-bottom: 1px dotted var(--border-color);
+}
+
+.links {
+  margin: 1rem 0;
+}
+
+.links a {
+  display: inline-block;
+  color: var(--text-primary);
+  text-decoration: none;
+  border: 1px solid var(--text-dim);
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  background-color: var(--bg-tertiary);
+}
+
+.links a:hover {
+  background-color: var(--text-dim);
+  color: var(--bg-primary);
+}
+
+/* ============================================
+   BROWSE CATEGORIES
+   ============================================ */
+
+.browse-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.browse-list li {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.browse-list a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.browse-list a:hover {
+  color: var(--text-primary);
+}
+
+.category-header {
+  color: var(--text-primary);
+  font-weight: bold;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: var(--bg-secondary);
+  border-left: 3px solid var(--text-primary);
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+
+.pagination {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.pagination a,
+.pagination span {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  border-color: var(--text-dim);
+  color: var(--text-primary);
+}
+
+.pagination .current {
+  background-color: var(--text-dim);
+  color: var(--bg-primary);
+  border-color: var(--text-dim);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+footer {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: 2rem 1rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+footer nav {
+  margin-bottom: 1rem;
+}
+
+footer a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 0 0.5rem;
+}
+
+footer a:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+footer p {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+
+footer b {
+  color: var(--text-secondary);
+  font-weight: normal;
+}
+
+/* ============================================
+   VPN BAR
+   ============================================ */
+
+#vpn-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-secondary);
+  border-top: 2px solid var(--text-primary);
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#vpn-bar p {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#vpn-bar a {
+  display: inline-block;
+  background-color: var(--text-dim);
+  color: var(--bg-primary);
+  font-weight: bold;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid var(--text-primary);
+  margin-left: 10px;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+#vpn-bar a:hover {
+  background-color: var(--text-primary);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.align-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Remove ad containers */
+.adblock,
+.ad728,
+.ad468,
+.ad234,
+.ad120,
+.col-left,
+.col-right,
+#ad-bottom,
+#had468,
+#had234 {
+  display: none !important;
+}
+
+/* Adjust layout without ads */
+.browse {
+  display: block;
+}
+
+.col-center {
+  width: 100%;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-dim);
+  border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--text-dim);
+  color: var(--bg-primary);
+}
+
+/* Cursor blink effect for inputs */
+input[type="search"]:focus,
+input[type="text"]:focus {
+  caret-color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  main {
+    padding: 1rem 0.5rem;
+  }
+  
+  table {
+    font-size: 0.8rem;
+  }
+  
+  th, td {
+    padding: 0.5rem 0.25rem;
+  }
+  
+  #metadata {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .form-box {
+    display: block;
+    margin: 0.25rem 0;
+  }
+}
